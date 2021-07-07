@@ -1,6 +1,6 @@
 <?php
 
-// Usage example without composer
+// Usage example without composer 
 
 require './src/wgd.php';
 
