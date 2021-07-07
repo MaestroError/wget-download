@@ -1,0 +1,19 @@
+{
+    "name": "maestroerror/wget-download",
+    "description": "easy to use, chainable PHP class for downloading files, uses wget CLI",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MaestroError",
+            "email": "revaz.gh@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "maestroerror\\wgd\\": "src/"
+        }
+    }
+}
