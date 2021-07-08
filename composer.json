@@ -9,8 +9,10 @@
             "email": "revaz.gh@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {},
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4"
+    },
     "autoload": {
         "psr-4": {
             "maestroerror\\wgd\\": "src/"
