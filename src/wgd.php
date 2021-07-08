@@ -1,5 +1,5 @@
 <?php 
-
+namespace maestroerror;
 class wgd {
 
     const REQUIRENAME = false;
