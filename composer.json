@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "maestroerror\\wgd\\": "src/"
+            "maestroerror\\": "src/"
         }
     }
 }
