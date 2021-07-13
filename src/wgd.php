@@ -137,7 +137,7 @@ class wgd {
         $limit = $this->limit;
 
         if ($this->filename) {
-            $this->options .= " -O $filename";
+            $this->options .= ' -O "'.$filename.'"';
         }
         if ($this->folder) {
             $this->options .= " -P $folder";
