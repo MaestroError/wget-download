@@ -110,7 +110,7 @@ class wgd {
     }
 
     public function file($txt) {
-        if ($this->allowUserAgent) {
+        if ($this->multiple) {
             $this->txtSource = $txt;
         }
         return $this;
