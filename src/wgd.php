@@ -14,7 +14,7 @@ class wgd {
     protected bool $bgDownload = true;
     // download with user agent (like from browser)
     protected bool $allowUserAgent = false;
-    protected string $userAgent;
+    protected string $userAgent = "Mozilla/5.0 (Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0";
     // download via https
     protected bool $checkCertificate = true;
     // download multiple files with .txt
@@ -56,6 +56,9 @@ class wgd {
         }
         return $this;
     }
+
+    
+    /** Set options */
 
     public function name($name) {
         $this->filename = $name;
@@ -121,11 +124,58 @@ class wgd {
         return $this;
     }
 
+    public function setLog($filename) {
+        $this->logFile = $filename;
+        return $this;
+    }
+
+
+    /** Retrive info */
+
     public function getUserAgent() {
-        if ($this->userAgent) {
-            return $this->userAgent;
+        if ($this->allowUserAgent) {
+            if ($this->userAgent) {
+                return $this->userAgent;
+            } else {
+                throw new Exception('User agent allowed but not set, please provide some');
+            }
         } else {
-            throw new Exception('User agent allowed but not set, please provide some');
+            throw new Exception('getUserAgent() method`s exception: user agent isn`t enabled and isn`t set. please, enable it with method allowUserAgent()');
+        }
+    }
+
+    public function getCurrLogFile() {
+        if ($this->logFile) {
+            return $this->logFile;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCurrCommand() {
+        if ($this->currCommand) {
+            return $this->currCommand;
+        } else {
+            return false;
+        }
+    }
+
+    function getLogLastLines() {
+        $file = file($this->logFile);
+        $line = count($file)-1;
+        $lastLines = $file[$line-2] ." | ". $file[$line-1] ." | ". $file[$line];
+        $comment = $lastLines;
+        return $comment;
+    }
+
+
+    /** Execution Process */
+
+    public static function chefo($path) {
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        } else {
+            return true;
         }
     }
 
@@ -188,8 +238,7 @@ class wgd {
             $command = "wget $options $url";
         }
         $this->currCommand = $command;
-        $this->filePath = $this->folder.DIRECTORY_SEPARATOR.$this->filename;
-        return $this;
+        $this->filePath = $this->folder.DIRECTORY_SEPARATOR.$this->filename; // ???
     }
 
     public function run() {
