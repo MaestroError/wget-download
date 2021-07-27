@@ -2,9 +2,12 @@
 namespace maestroerror;
 class wgd {
 
+    // It`s better to require name if your downloads has non-readable default names
     const REQUIRENAME = false;
+    // It`s better to require folder if you use .txt downloads
     const REQUIREFOLDER = false;
 
+    // filename must be fullname (path+name+extension) ex: /Home/Downloads/newCoolVideo.mp4
     protected ?string $filename = null;
     protected ?string $folder = null;
     protected ?string $limit = null;
@@ -31,29 +34,36 @@ class wgd {
     public $currCommand;
     public $filePath;
 
-    public function __construct(array $config) {
+    public function __construct($config = "") {
 
-        if (isset($config['filename'])) {
-            $this->filename = $config['filename'];
-        } else {
-            if ($this::REQUIRENAME) {
-                throw new Exception('filename is required parameter');
+        if (is_array($config)) {
+            if (isset($config['filename'])) {
+                $this->filename = $config['filename'];
+            } else {
+                if ($this::REQUIRENAME) {
+                    throw new \Exception('filename is required parameter');
+                }
             }
-        }
-
-        if (isset($config['folder'])) {
-            $this->folder = $config['folder'];
-        } else {
-            if ($this::REQUIREFOLDER) {
-                throw new Exception('folder is required parameter');
+    
+            if (isset($config['folder'])) {
+                $this->folder = $config['folder'];
+            } else {
+                if ($this::REQUIREFOLDER) {
+                    throw new \Exception('folder is required parameter');
+                }
             }
-        }
-
-        if (isset($config['url'])){
-            $this->url = $config['url'];
+    
+            if (isset($config['url'])){
+                $this->url = $config['url'];
+            } else {
+                throw new \Exception('URL is required parameter');
+            }
+        } elseif (is_string($config) && !$this::REQUIRENAME && !$this::REQUIREFOLDER) {
+            $this->url = $config;
         } else {
-            throw new Exception('URL is required parameter');
+            throw new \Exception('Unknown error occured while constructing '.get_class($this).". Please, check if you provided URL while constructing and if there is some more required parameters (see REQUIRENAME and REQUIREFOLDER constants)");
         }
+        
         return $this;
     }
 
@@ -137,10 +147,10 @@ class wgd {
             if ($this->userAgent) {
                 return $this->userAgent;
             } else {
-                throw new Exception('User agent allowed but not set, please provide some');
+                throw new \Exception('User agent allowed but not set, please provide some');
             }
         } else {
-            throw new Exception('getUserAgent() method`s exception: user agent isn`t enabled and isn`t set. please, enable it with method allowUserAgent()');
+            throw new \Exception('getUserAgent() method`s \Exception: user agent isn`t enabled and isn`t set. please, enable it with method allowUserAgent()');
         }
     }
 
@@ -215,7 +225,7 @@ class wgd {
     private function executeAsync($command = null){
         // background execution
         if(!$command){
-            throw new Exception("No command given");
+            throw new \Exception("No command given");
         }
         if (substr(php_uname(), 0, 7) == "Windows"){
             pclose(popen("start /B ". $command, "r")); 
@@ -229,6 +239,11 @@ class wgd {
         $this->setOptions();
         $options = $this->options;
         if ($this->multiple && $this->txtSource) {
+            
+            if (!$this->folder && !$this::REQUIREFOLDER) {
+                trigger_error("while downloading multiple files with .txt, it`s better practice to set folder, to avoid this error require folder with maestroerror\wgd::REQUIREFOLDER constant", E_USER_WARNING);
+            }
+            
             if (file_exists($this->txtSource)) {
                 $txt = realpath($this->txtSource);
                 $command = "wget $options -i $txt";
