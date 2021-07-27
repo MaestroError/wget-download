@@ -6,7 +6,7 @@ require './src/wgd.php';
 
 if (isset($_GET['download'])) {
     $conf = [
-        "filename" => "NewFileName.mp4",
+        "filename" => "/Home/Downloads/newFileName.mp4",
         "folder" => "YOUR FOLDER",
         "url" => "YOUR URL"
     ];
@@ -17,7 +17,7 @@ if (isset($_GET['download'])) {
 
 // Construct with parameteres array
 $conf = [
-    "filename" => "NewFileName.mp4",
+    "filename" => "/Home/Downloads/newFileName.mp4",
     "folder" => "YOUR FOLDER",
     "url" => "YOUR URL"
 ];

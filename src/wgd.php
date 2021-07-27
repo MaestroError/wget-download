@@ -253,7 +253,7 @@ class wgd {
             $command = "wget $options $url";
         }
         $this->currCommand = $command;
-        $this->filePath = $this->folder.DIRECTORY_SEPARATOR.$this->filename; // ???
+        $this->filePath = $this->filename; // ???
     }
 
     public function run() {
