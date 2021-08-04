@@ -35,7 +35,6 @@ $file = new maestroerror\wgd();
 $file->folder("YOUR FOLDER")->name("/Home/Downloads/newFileName.mp4")->url("YOUR URL");
 ```
 ## Options
-##### Some main of options you can define with just one method
 set speed limit:
 ```
 $file->speedLimit("500k");
@@ -52,4 +51,30 @@ By default silent (download in background) mode is enabled, but for some specifi
 ```
 $file->silent();
 $file->wait(); // Waits before downloaded
+```
+Sometimes you should use a user agent for download. first, you need to allow and after set user agent for your download:
+```
+$file->allowUserAgent()->userAgent($user_agent_string)
+```
+for multiple .txt downloads, you need .txt file with urls (line by line). Like in user agent case, first, allow multiple download with *multiple* method and then give .txt file to run:
+```
+$file->multiple()->file($filepath);
+```
+## Logs
+default log file is defined as protected property in wgd class `protected string $logFile = "wgetlog.txt";`, but if you need, you can specify with *setLog* method:
+```
+$file->setLog("/Home/Downloads/newFileLog.txt");
+$file->setLog("newFileLog.txt");
+```
+## Run
+The last step is an execution, you can start your download with *run* method: `$file->run()`.    
+Now let's say, we need to download file on background, with secure connection, set speed limit 1MB and allow continue:
+```
+$conf = [
+    "filename" => "/Home/Downloads/newFileName.mp4",
+    "folder" => "YOUR FOLDER",
+    "url" => "YOUR URL"
+];
+$file = new maestroerror\wgd($conf);
+$file->setLog("newFileLog.txt")->silent()->secure()->speedLimit("1m")->continueIfStopped()->run()
 ```
