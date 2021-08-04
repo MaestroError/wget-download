@@ -2,7 +2,7 @@
 easy to use, chainable PHP class for downloading files, uses wget CLI
 
 # Instructions
-I will try to provide some instructions, to better understanding and use the main features of this little library.   
+I will try to provide some instructions, to better understand and use the main features of this little library.   
 
 ## installation
 #### via Composer:  
@@ -33,4 +33,23 @@ $file = new maestroerror\wgd($url);
 // Construct without parameters
 $file = new maestroerror\wgd();
 $file->folder("YOUR FOLDER")->name("/Home/Downloads/newFileName.mp4")->url("YOUR URL");
+```
+## Options
+##### Some main of options you can define with just one method
+set speed limit:
+```
+$file->speedLimit("500k");
+```
+enable continue after the interrupt, so if the internet connection stopped it will automatically resume the download after the connection is restored:
+```
+$file->continueIfStopped();
+```
+**$checkCertificate** is defined in wgd class as protected boolean property and by default it is set to *false*, you can use *secure* method, to allow **HTTPS** certificate check for specific downloads:
+```
+$file->secure();
+```
+By default silent (download in background) mode is enabled, but for some specific downloads you can specify conditions:
+```
+$file->silent();
+$file->wait(); // Waits before downloaded
 ```
