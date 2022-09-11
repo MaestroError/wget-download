@@ -1,8 +1,16 @@
 # wget-download
 easy to use, chainable PHP class for downloading files, uses wget CLI
 
-# Instructions
+# Docs
 I will try to provide some instructions, to better understand and use the main features of this little library.   
+
+- [Installation](#installation)
+    - [Composer](#via-composer)
+    - [From github](#from-github)
+- [Initialization](#initialization-of-class-construction)
+- [Options](#Options)
+- [Logs](#logs)
+- [Run](#run)
 
 ## installation
 #### via Composer:  
@@ -15,7 +23,7 @@ composer require maestroerror/wget-download
 git clone https://github.com/MaestroError/wget-download.git
 ```
 
-## Initialisation of class (Construction)
+## Initialization of class (Construction)
 You can construct object with 3 different ways: with array of configs, with string of URL or without any parameters (and provide them further). Which you choose, it depends on your needs:
 ```
 // Construct with parameteres array
@@ -78,3 +86,11 @@ $conf = [
 $file = new maestroerror\wgd($conf);
 $file->setLog("newFileLog.txt")->silent()->secure()->speedLimit("1m")->continueIfStopped()->run()
 ```
+
+---------------------------------      
+### To Do
+- Search for todo comments and fix them
+- Add more use cases in examples
+- Add config files
+- Update documentation
+- New release
