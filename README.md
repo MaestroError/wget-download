@@ -1,5 +1,5 @@
 # wget-download
-easy to use, chainable PHP class for downloading files, uses wget CLI
+easy to use, chainable PHP class for downloading files, uses **wget** CLI
 
 # Docs
 I will try to provide some instructions, to better understand and use the main features of this little library.   
@@ -22,6 +22,8 @@ composer require maestroerror/wget-download
 ```
 git clone https://github.com/MaestroError/wget-download.git
 ```
+        
+*Note: It needs **wget** command to be available from your terminal. Check with `wget --help` or install: Run `apt-get install wget` for linux or [download for windows](https://eternallybored.org/misc/wget/)*
 
 ## Initialization of class (Construction)
 You can construct object with 3 different ways: with array of configs, with string of URL or without any parameters (and provide them further). Which you choose, it depends on your needs:
