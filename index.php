@@ -15,7 +15,7 @@ if (isset($_GET['download'])) {
     header("location: /");
 }
 
-// Construct with parameteres array
+// Construct with parameters array
 $conf = [
     "filename" => "/Home/Downloads/newFileName.mp4",
     "folder" => "YOUR FOLDER",
